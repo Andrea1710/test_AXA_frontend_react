@@ -1,9 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import Gnomes from "./components/Gnomes";
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
+it("renders App Component", () => {
+  const div = document.createElement("div");
   ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+});
+
+it("renders Gnomes Component", () => {
+  const div = document.createElement("div");
+  ReactDOM.render(<Gnomes />, div);
 });

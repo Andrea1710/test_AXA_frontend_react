@@ -1,10 +1,10 @@
 .modal {
   background: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  left: 20%;
+  left: 5%;
   position: fixed;
   top: 20vh;
-  width: 60%;
+  width: 90%;
 }
 
 .modal__header {
@@ -25,10 +25,10 @@
 
 @media (max-width: 768px) {
   .modal {
-    width: 70%;
+    width: 80%;
   }
 
-  .modal__actions {
+  .modal__content {
     text-align: center;
   }
 }
@@ -38,7 +38,7 @@
     width: 17rem;
   }
 
-  .modal__actions {
+  .modal__content {
     text-align: center;
   }
 }

@@ -106,11 +106,13 @@ class Gnomes extends Component {
     let data = [];
     const gnomes = this.state.gnomes.map(gnome => {
       const professions = gnome.professions;
-      const profession = professions.join(", ");
+      let profession = professions.join(", ");
+      if (!profession) {
+        profession = "Unemployed";
+      }
 
       const friends = gnome.friends;
       let friend = friends.join(", ");
-
       if (!friend) {
         friend = "No friends";
       }
@@ -166,7 +168,16 @@ class Gnomes extends Component {
         render: (text, record) => {
           return (
             <span>
-              <button onClick={this.openModalHandler}>{record.name}</button>
+              <button
+                style={{
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                  borderRadius: "10px"
+                }}
+                onClick={this.openModalHandler}
+              >
+                {record.name}
+              </button>
               {this.state.open && <Backdrop />}
               {this.state.open && (
                 <Modal
