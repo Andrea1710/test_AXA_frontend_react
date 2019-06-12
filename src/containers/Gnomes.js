@@ -109,7 +109,8 @@ class Gnomes extends Component {
       {
         title: "AGE",
         dataIndex: "age",
-        key: "age"
+        key: "age",
+        sorter: (a, b) => a.age - b.age
       },
       {
         title: "WEIGHT",
