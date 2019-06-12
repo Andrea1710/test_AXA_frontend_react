@@ -126,7 +126,43 @@ class Gnomes extends Component {
       {
         title: "HAIR",
         dataIndex: "hair_color",
-        key: "hair_color"
+        key: "hair_color",
+        filters: [
+          { text: "Red", value: "Red" },
+          { text: "Black", value: "Black" },
+          { text: "Green", value: "Green" },
+          { text: "Pink", value: "Pink" },
+          { text: "Gray", value: "Gray" }
+        ],
+        onFilter: (value, record) => record.hair_color.indexOf(value) === 0,
+        render: hairs => (
+          <span>
+            {hairs.map(hair => {
+              let color;
+              switch (hair) {
+                case "Pink":
+                  color = "pink";
+                  break;
+                case "Gray":
+                  color = "gray";
+                  break;
+                case "Green":
+                  color = "green";
+                  break;
+                case "Red":
+                  color = "red";
+                  break;
+                default:
+                  color = "black";
+              }
+              return (
+                <Tag color={color} key={hair}>
+                  {hair.toUpperCase()}
+                </Tag>
+              );
+            })}
+          </span>
+        )
       },
       {
         title: "PROFESSIONS",
