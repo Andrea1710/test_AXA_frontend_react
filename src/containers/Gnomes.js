@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table } from "antd";
+import { Table, Tag } from "antd";
 
 import "antd/dist/antd.css";
 
@@ -28,17 +28,39 @@ class Gnomes extends Component {
   render() {
     let data = [];
     const gnomes = this.state.gnomes.map(gnome => {
+      const professions = gnome.professions;
+      const profession = professions.join(", ");
+
+      const friends = gnome.friends;
+      let friend = friends.join(", ");
+
+      if (!friend) {
+        friend = "No friends";
+      }
+
+      let gender;
+      switch (gnome.hair_color) {
+        case "Pink":
+        case "Red":
+        case "Green":
+          gender = "FEMALE";
+          break;
+        default:
+          gender = "MALE";
+      }
+
       return {
         key: gnome.id,
         id: gnome.id,
         name: gnome.name,
         thumbnail: gnome.thumbnail,
+        gender: [gender],
         age: gnome.age,
         weight: gnome.weight.toFixed(2) + " kg",
         height: gnome.height.toFixed(2) + " cm",
         hair_color: [gnome.hair_color],
-        professions: gnome.professions,
-        friends: gnome.friends
+        professions: profession,
+        friends: friend
       };
     });
     data = gnomes;
@@ -53,6 +75,23 @@ class Gnomes extends Component {
         title: "IMAGE",
         dataIndex: "thumbnail",
         key: "thumbnail"
+      },
+      {
+        title: "GENDER",
+        dataIndex: "gender",
+        key: "gender",
+        render: genders => (
+          <span>
+            {genders.map(gender => {
+              let color = gender === "MALE" ? "blue" : "pink";
+              return (
+                <Tag color={color} key={gender}>
+                  {gender.toUpperCase()}
+                </Tag>
+              );
+            })}
+          </span>
+        )
       },
       {
         title: "AGE",
