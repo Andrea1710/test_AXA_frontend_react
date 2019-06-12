@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Table, Tag, Avatar } from "antd";
+import { Table, Tag, Avatar, Input, Button, Icon } from "antd";
+import Highlighter from "react-highlight-words";
 
 import "antd/dist/antd.css";
 
@@ -23,6 +24,69 @@ class Gnomes extends Component {
         const data = resData.Brastlewark;
         this.setState({ gnomes: data });
       });
+  };
+
+  filterHandler = dataIndex => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters
+    }) => (
+      <div>
+        <Input
+          ref={node => {
+            this.searchInput = node;
+          }}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={event =>
+            setSelectedKeys(event.target.value ? [event.target.value] : [])
+          }
+          onPressEnter={() => this.handleSearch(selectedKeys, confirm)}
+        />
+        <Button
+          type="primary"
+          onClick={() => this.handleSearch(selectedKeys, confirm)}
+          icon="search"
+          size="small"
+        >
+          Search
+        </Button>
+        <Button onClick={() => this.handleReset(clearFilters)} size="small">
+          Reset
+        </Button>
+      </div>
+    ),
+    filterIcon: filtered => <Icon type="search" />,
+    onFilter: (value, record) =>
+      record[dataIndex]
+        .toString()
+        .toLowerCase()
+        .includes(value.toLowerCase()),
+    onFilterDropdownVisibleChange: visible => {
+      if (visible) {
+        setTimeout(() => this.searchInput.select());
+      }
+    },
+    render: text => (
+      <Highlighter
+        highlightStyle={{ backgroundColor: "yellow", padding: 0 }}
+        searchWords={[this.state.searchText]}
+        autoEscape
+        textToHighlight={text.toString()}
+      />
+    )
+  });
+
+  handleSearch = (selectedKeys, confirm) => {
+    confirm();
+    this.setState({ searchText: selectedKeys[0] });
+  };
+
+  handleReset = clearFilters => {
+    clearFilters();
+    this.setState({ searchText: "" });
   };
 
   render() {
@@ -69,7 +133,8 @@ class Gnomes extends Component {
       {
         title: "NAME",
         dataIndex: "name",
-        key: "name"
+        key: "name",
+        ...this.filterHandler("name")
       },
       {
         title: "IMAGE",
@@ -168,12 +233,14 @@ class Gnomes extends Component {
       {
         title: "PROFESSIONS",
         dataIndex: "professions",
-        key: "professions"
+        key: "professions",
+        ...this.filterHandler("professions")
       },
       {
         title: "FRIENDS",
         dataIndex: "friends",
-        key: "friends"
+        key: "friends",
+        ...this.filterHandler("friends")
       }
     ];
 
