@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table, Tag } from "antd";
+import { Table, Tag, Avatar } from "antd";
 
 import "antd/dist/antd.css";
 
@@ -74,7 +74,20 @@ class Gnomes extends Component {
       {
         title: "IMAGE",
         dataIndex: "thumbnail",
-        key: "thumbnail"
+        key: "thumbnail",
+        render: (text, record) => {
+          return (
+            <span>
+              <a
+                href={record.thumbnail}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Avatar shape="square" size={64} src={record.thumbnail} />
+              </a>
+            </span>
+          );
+        }
       },
       {
         title: "GENDER",
