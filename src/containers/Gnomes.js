@@ -4,9 +4,14 @@ import Highlighter from "react-highlight-words";
 
 import "antd/dist/antd.css";
 
+import Modal from "../components/Modal/Modal";
+import Backdrop from "../components/Backdrop/Backdrop";
+
 class Gnomes extends Component {
   state = {
-    gnomes: []
+    gnomes: [],
+    searchText: "",
+    open: false
   };
 
   componentDidMount() {
@@ -89,6 +94,14 @@ class Gnomes extends Component {
     this.setState({ searchText: "" });
   };
 
+  openModalHandler = () => {
+    this.setState({ open: true });
+  };
+
+  closeModalHandler = () => {
+    this.setState({ open: false });
+  };
+
   render() {
     let data = [];
     const gnomes = this.state.gnomes.map(gnome => {
@@ -129,12 +142,42 @@ class Gnomes extends Component {
     });
     data = gnomes;
 
+    const attitude = [
+      "This Gnome likes Hunting, and it likes to go hunting alone",
+      "This Gnome is very lazy and it doesn't want to work",
+      "This Gnome is good with kids, but nobody here is less than 30 years old!",
+      "This Gnome goes running every day!",
+      "This Gnome is a good fighter, but the partner doesn't know!",
+      "This Gnome has three children with two other Gnomes!",
+      "This Gnome wants to leave town, but don't tell anybody!",
+      "This Gnome has very good skills in the kitchen",
+      "This Gnome wants to learn the Orcs' language",
+      "This Gnome learned how to build Applications"
+    ];
+    const randomAttitude =
+      attitude[Math.floor(Math.random() * attitude.length)];
+
     const columns = [
       {
         title: "NAME",
         dataIndex: "name",
         key: "name",
-        ...this.filterHandler("name")
+        ...this.filterHandler("name"),
+        render: (text, record) => {
+          return (
+            <span>
+              <button onClick={this.openModalHandler}>{record.name}</button>
+              {this.state.open && <Backdrop />}
+              {this.state.open && (
+                <Modal
+                  title="Gnome Character"
+                  onExit={this.closeModalHandler}
+                  character={randomAttitude}
+                />
+              )}
+            </span>
+          );
+        }
       },
       {
         title: "IMAGE",
