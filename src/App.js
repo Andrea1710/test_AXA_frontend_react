@@ -9,6 +9,7 @@ class App extends Component {
     instructions: false
   };
 
+  // set the instructions property with the opposite Boolean of the previous state
   instructionsHandler = () => {
     this.setState(prevState => ({
       instructions: !prevState.instructions
@@ -16,6 +17,7 @@ class App extends Component {
   };
 
   render() {
+    // Text shown depending on the Button Click (for text and button)
     let text =
       "Click the Button for instructions on how to use the Application!";
     let button = "Open Instructions";

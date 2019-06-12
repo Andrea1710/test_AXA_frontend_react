@@ -14,10 +14,12 @@ class Gnomes extends Component {
     open: false
   };
 
+  // fetching the Data when the App is completely loaded
   componentDidMount() {
     this.getGnomes();
   }
 
+  // fetching the Gnomes Data and storing it into the App State
   getGnomes = () => {
     fetch(
       "https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json"
@@ -31,6 +33,7 @@ class Gnomes extends Component {
       });
   };
 
+  // function to filter the data depending on the User Input
   filterHandler = dataIndex => ({
     filterDropdown: ({
       setSelectedKeys,
@@ -84,39 +87,47 @@ class Gnomes extends Component {
     )
   });
 
+  // setting the temporary State depending on the keys input inserted by the User
   handleSearch = (selectedKeys, confirm) => {
     confirm();
     this.setState({ searchText: selectedKeys[0] });
   };
 
+  // clearing the state to reset the filter
   handleReset = clearFilters => {
     clearFilters();
     this.setState({ searchText: "" });
   };
 
+  // setting the state to true to open the Modal
   openModalHandler = () => {
     this.setState({ open: true });
   };
 
+  // setting the state to false to close the Modal
   closeModalHandler = () => {
     this.setState({ open: false });
   };
 
   render() {
     let data = [];
+    // looping through the Data to fetch and set variables to be shown
     const gnomes = this.state.gnomes.map(gnome => {
+      // new string concatenating, adding a comma and a space, the elements of the 'professions' array
       const professions = gnome.professions;
       let profession = professions.join(", ");
       if (!profession) {
         profession = "Unemployed";
       }
 
+      // new string concatenating, adding a comma and a space, the elements of the 'friends' array
       const friends = gnome.friends;
       let friend = friends.join(", ");
       if (!friend) {
         friend = "No friends";
       }
 
+      // depending on the hair color, the gender variable will change accordingly
       let gender;
       switch (gnome.hair_color) {
         case "Pink":
@@ -128,6 +139,7 @@ class Gnomes extends Component {
           gender = "MALE";
       }
 
+      // properties to be shown in the Table fetched from the Data
       return {
         key: gnome.id,
         id: gnome.id,
@@ -144,6 +156,7 @@ class Gnomes extends Component {
     });
     data = gnomes;
 
+    // array of different attitudes
     const attitude = [
       "This Gnome likes Hunting, and it likes to go hunting alone",
       "This Gnome is very lazy and it doesn't want to work",
@@ -156,6 +169,7 @@ class Gnomes extends Component {
       "This Gnome wants to learn the Orcs' language",
       "This Gnome learned how to build Applications"
     ];
+    // randomly selecting an attitude for each Gnome
     const randomAttitude =
       attitude[Math.floor(Math.random() * attitude.length)];
 
