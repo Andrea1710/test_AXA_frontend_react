@@ -26,18 +26,18 @@ This Application has been built using pure React.js (Javascript), CSS and 3rd Pa
 
 In order to fetch the JSON data from the Endopoint provided, I used the Native React function 'fetch'.
 
-Then, through the usage and customization of the Data received, I could assemble a detailed Table, showing the Data fethced from the Endpoint.
+Then, through the usage and customization of the Data received, I could assemble a detailed Table, showing the Data fetched from the Endpoint.
 
 In this Table, we can:
 
 - filter Gnomes by Name
-- open the Image clicking on the Avatar in the Table
+- open the Image, clicking on the Avatar in the Table
 - sort the Gnomes by Age (descending and ascending order)
-- filter the Gnomes based on their hair color
+- filter the Gnomes based on their Hair color
 - filter the Gnomes by Profession
 - filter the Gnomes by Friends
 
-There are detailed istructions on the Header of the App, clicking on the Button 'Open Instructions' for the Users.
+There are detailed istructions on the Header of the App, clicking on the Button 'Open Instructions', for the Users.
 
 ### Details
 
